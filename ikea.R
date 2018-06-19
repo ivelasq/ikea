@@ -45,13 +45,16 @@ pdfs_names <-
 downloaded_pdfs <-
   paste0("./ikea_pdfs/", pdfs_names)
 
-# converting to images
+# unfortunately, pdf_text can't read the numbers we'd like
+# pdf_text("./ikea_pdfs/assembly_instructions_3.pdf")
 
-mapply(pdf_convert, format = "png", pages = 2, dpi = 400, downloaded_pdfs)
+# reading image files -----------------------------------------------------
 
-# reading image files
+# creating and reading image files
+
+mapply(ocr, downloaded_pdfs)
+
+ocr("./ikea_pdfs/assembly_instructions_2.pdf")[1]
 
 png_names <-
   list.files(path = "./", pattern = "\\.png$")
-
-mapply(ocr, png_names)
